@@ -17,6 +17,8 @@ fun RegisterScreen(onRegistered: () -> Unit) {
     val state = vm.state.collectAsState()
     isLoading = state.value.isLoading
     error = state.value.error
+    val availableRoles = listOf("PATIENT", "DOCTOR", "NURSE", "RECEPTIONIST", "ADMIN")
+    var selectedRoles by remember { mutableStateOf(setOf("PATIENT")) }
 
     Column(modifier = Modifier.fillMaxSize().padding(24.dp), verticalArrangement = Arrangement.Center) {
         Text(text = "Register", style = MaterialTheme.typography.headlineMedium)
@@ -32,7 +34,21 @@ fun RegisterScreen(onRegistered: () -> Unit) {
         }
 
         Spacer(Modifier.height(16.dp))
-        Button(onClick = { vm.register(email, password, onRegistered) }, enabled = !isLoading, modifier = Modifier.fillMaxWidth()) {
+        Text("Select roles")
+        Spacer(Modifier.height(8.dp))
+        availableRoles.forEach { role ->
+            val checked = selectedRoles.contains(role)
+            Row(modifier = Modifier.fillMaxWidth()) {
+                Checkbox(checked = checked, onCheckedChange = {
+                    selectedRoles = if (it) selectedRoles + role else selectedRoles - role
+                })
+                Spacer(Modifier.width(8.dp))
+                Text(role)
+            }
+        }
+
+        Spacer(Modifier.height(16.dp))
+        Button(onClick = { vm.registerWithRoles(email, password, selectedRoles.toList(), onRegistered) }, enabled = !isLoading, modifier = Modifier.fillMaxWidth()) {
             Text("Register")
         }
     }

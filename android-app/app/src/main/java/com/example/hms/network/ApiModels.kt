@@ -1,22 +1,19 @@
 package com.example.hms.network
 
-import com.squareup.moshi.JsonClass
+import com.google.gson.annotations.SerializedName
 
-@JsonClass(generateAdapter = true)
 data class AuthRequest(
-    val email: String,
-    val password: String
+    @SerializedName("email") val email: String,
+    @SerializedName("password") val password: String
 )
 
-@JsonClass(generateAdapter = true)
 data class RegisterRequest(
-    val email: String,
-    val password: String,
-    val roles: List<String>? = null
+    @SerializedName("email") val email: String,
+    @SerializedName("password") val password: String,
+    @SerializedName("roles") val roles: List<String>? = null
 )
 
-@JsonClass(generateAdapter = true)
 data class AuthResponse(
-    val token: String
+    @SerializedName("token") val token: String
 )
 

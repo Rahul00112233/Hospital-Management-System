@@ -14,6 +14,10 @@ fun HomeScreen() {
     Column(modifier = Modifier.fillMaxSize().padding(24.dp)) {
         Text(text = "Welcome to HMS", style = MaterialTheme.typography.headlineMedium)
         Spacer(Modifier.height(12.dp))
+        if (state.value.roles.isNotEmpty()) {
+            Text("Your roles: ${state.value.roles.joinToString()}")
+            Spacer(Modifier.height(12.dp))
+        }
         Button(onClick = { vm.fetchProtected() }) { Text("Fetch protected data") }
         Spacer(Modifier.height(12.dp))
         if (state.value.protectedData != null) {

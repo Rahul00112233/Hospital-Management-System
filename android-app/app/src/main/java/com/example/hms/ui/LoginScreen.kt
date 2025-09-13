@@ -8,7 +8,7 @@ import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.unit.dp
 
 @Composable
-fun LoginScreen(onLoggedIn: () -> Unit) {
+fun LoginScreen(onLoggedIn: () -> Unit, onNavigateRegister: () -> Unit = {}) {
     var email by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
     var isLoading by remember { mutableStateOf(false) }
@@ -35,7 +35,7 @@ fun LoginScreen(onLoggedIn: () -> Unit) {
         Button(onClick = { vm.login(email, password, onLoggedIn) }, enabled = !isLoading, modifier = Modifier.fillMaxWidth()) {
             Text("Login")
         }
-        TextButton(onClick = { /* navigate to register - implemented in nav host */ }) {
+        TextButton(onClick = { onNavigateRegister() }) {
             Text("Create account")
         }
     }

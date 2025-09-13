@@ -25,5 +25,7 @@ class AuthRepository(
     suspend fun fetchProtectedSample(): Result<String> = runCatching {
         api.getPatientRecords()
     }
+
+    suspend fun getToken(): String? = tokenStore.getToken()
 }
 
